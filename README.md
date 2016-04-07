@@ -24,6 +24,29 @@ Only gen_js_api version is provided.
 
 The binding has not been tested but it compiles.
 
+## How to install and compile your project by using this plugin ?
+
+Don't forget to switch to a compiler **>= 4.03.0**.
+```Shell
+opam switch 4.03.0+beta1
+```
+
+You can use opam by pinning the repository with
+```Shell
+opam pin add cordova-plugin-media https://github.com/dannywillems/ocaml-cordova-plugin-media.git
+```
+
+and to compile your project, use
+```Shell
+ocamlfind ocamlc -c -o [output_file] -package gen_js_api -package cordova-plugin-media [...] -linkpkg [other arguments]
+```
+
+Don't forget to install the cordova plugin media with
+```Shell
+cordova plugin add cordova-plugin-media
+```
+
 ## How to use ?
 
-TODO
+See the official documentation:
+[cordova-plugin-media](https://github.com/apache/cordova-plugin-media)
