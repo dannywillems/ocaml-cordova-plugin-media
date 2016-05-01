@@ -6,10 +6,6 @@
 Binding to
 [cordova-plugin-media](https://github.com/apache/cordova-plugin-media)
 
-[Example
-application](https://github.com/dannywillems/ocaml-cordova-plugin-media-example).
-**Not developed**
-
 ## What does cordova-plugin-media do ?
 
 ```
