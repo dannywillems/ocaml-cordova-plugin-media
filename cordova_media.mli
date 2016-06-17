@@ -16,45 +16,63 @@ type media_error =
 (* -------------------------------------------------------------------------- *)
 
 (* -------------------------------------------------------------------------- *)
-class error : Ojs.t ->
-  object
-    inherit Ojs.obj
+type error = private Ojs.t
 
-    method code : media_error
-    method message : string
-  end
+val code    : error -> media_error
+val message : error -> string
 (* -------------------------------------------------------------------------- *)
 
 (* -------------------------------------------------------------------------- *)
-class media : Ojs.t ->
-  object
-    inherit Ojs.obj
+type media = private Ojs.t
 
-    method get_current_amplitude  : (float -> unit)         ->
-                                    ?error:(error -> unit) ->
-                                    unit                    ->
-                                    unit
-    method get_current_position   : (int -> unit)           ->
-                                    ?error:(error -> unit) ->
-                                    unit                    ->
-                                    unit
-    method get_duration           : int
-    [@@js.get "getDuration"]
-    method play                   : unit
-    method pause                  : unit
-    method stop                   : unit
-    method seek_to                : int -> unit
-    method set_volume             : int -> unit
-    [@@js.set "setVolume"]
-    method start_record           : unit
-    method stop_record            : unit
-  end
+val get_current_amplitude  :
+  media                   ->
+  (float -> unit)         ->
+  ?error:(error -> unit)  ->
+  unit                    ->
+  unit
+[@@js.call]
 
-val new_media : string                            ->
-                (int -> unit)                     ->
-                ?error_cb:(media_error -> unit)   ->
-                ?status_cb:(media_status -> unit) ->
-                unit                              ->
-                media
+val get_current_position   :
+  media                   ->
+  (int -> unit)           ->
+  ?error:(error -> unit)  ->
+  unit                    ->
+  unit
+[@@js.call]
+
+val get_duration           : media -> int
+[@@js.get]
+
+val play                   : media -> unit
+[@@js.call]
+
+val pause                  : media -> unit
+[@@js.call]
+
+val stop                   : media -> unit
+[@@js.call]
+
+val seek_to                : media -> int
+[@@js.call "seekTo"]
+
+val set_volume             : media -> int
+[@@js.call "setVolume"]
+
+val start_record           : media -> unit
+[@@js.call]
+
+val stop_record            : media -> unit
+[@@js.call]
+(* -------------------------------------------------------------------------- *)
+
+(* -------------------------------------------------------------------------- *)
+val new_media :
+  string                            ->
+  (int -> unit)                     ->
+  ?error_cb:(media_error -> unit)   ->
+  ?status_cb:(media_status -> unit) ->
+  unit                              ->
+  media
 [@@js.new "Media"]
 (* -------------------------------------------------------------------------- *)
